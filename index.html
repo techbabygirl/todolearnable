@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="verticalNav">
+            <li><a href=""></a> T0 DO LIST</li>
+            <li><img src="/img/image-.png" alt="" height="30px" width="30px"></li>
+        </ul>
+        <ul class="horizontalNav">
+            <li><a href=""><img src="" alt="">NEW TASK</a></li>
+            <li><a href=""><img src="" alt="">Task LIST</a></li>
+            <li><a href=""><img src="" alt="">New PAGE</a></li>
+            <li><a href=""><img src="" alt="">EDIT TASK</a></li>
+        </ul>
+    </nav>
+
+  <div class="container">
+    <h1>Todo List App</h1>
+    <input type="text" id="taskInput" placeholder="Add new task">
+    <button onclick="addTask()">Add Task</button>
+    
+<table style="display: flex; justify-content: space-between;" id="display">
+   <tr>
+       <td></td>
+       <td></td>
+       <td></td>
+    </tr>
+</table>
+
+
+  </div>
+
+  <!-- JAVASCRIPT -->
+<script>
+    let input = document.querySelector('#taskInput')
+   let display = document.querySelector('#display')
+    let todolist = []
+
+    //ADD TODO
+    function addTask(){
+    todolist.push(input.value)
+    // CALL displayTodo Function
+    displayTodo()
+}
+
+// display todo
+function displayTodo(){
+display.innerHTML = ''
+
+// show all the content from the array inside the display
+todolist.forEach((elem, i)=>{
+    display.innerHTML += 
+`<table>
+    <tr >
+        <td> <h1 onclick = "deleteTodo(${i})">${elem} </h1></td>
+        <td> <button onclick="editTodo(${i})"> Edit</button> </td>
+        <td> <button onclick="deleteTodo(${i})"> delete</button> </td>
+        
+
+    </tr>
+</table>`
+
+})
+}
+displayTodo()
+
+// delete todo
+function deleteTodo(index) {
+    const newTodolist = todolist.filter(function(elem, i) {
+        return i != index
+    })
+    todolist = newTodolist
+    displayTodo()
+}
+
+function editTodo(index) {
+    let res = todolist.find(function(elem, i) {
+        return i === index
+    })
+
+    let newVal = prompt(res, '')
+    if (newVal) {
+        todolist.splice(index, 1, newVal)
+    }
+    displayTodo()
+}
+
+
+
+// class TodoList {
+//   constructor() {
+//     this.tasks = [];
+//   }
+
+//   addTask(task) {
+//     this.tasks.push(task);
+//   }
+
+//   removeTask(index) {
+//     this.tasks.splice(index, 1);
+//   }
+
+//   renderTasks() {
+//     const taskList = document.getElementById('taskList');
+//     taskList.innerHTML = '';
+//     this.tasks.forEach((task, index) => {
+//       const li = document.createElement('li');
+//       li.textContent = task;
+//       const removeBtn = document.createElement('button');
+//       removeBtn.textContent = '❌';
+//       removeBtn.onclick = () => {
+//         this.removeTask(index);
+//         this.renderTasks();
+//       };
+//       li.appendChild(removeBtn);
+//       taskList.appendChild(li);
+//     });
+//   }
+// }
+
+// const todoList = new TodoList();
+
+// function addTask() {
+//   const taskInput = document.getElementById('taskInput');
+//   const task = taskInput.value.trim();
+//   if (task !== '') {
+//     todoList.addTask(task);
+//     todoList.renderTasks();
+//     taskInput.value = '';
+//   }
+// }
+
+
+</script>
+</body>
+</html>
